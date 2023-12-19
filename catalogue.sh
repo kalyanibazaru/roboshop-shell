@@ -41,11 +41,11 @@ VALIDATE $? "Installing nodejs: 18"
 
 id roboshop #if roboshop user does not exist
 if [ $? -ne 0 ]
-then
-useradd roboshop
-VALIDATE $? "roboshop user creation"
-else
-echo -e "roboshop user already exist $Y SKIPPING $N"
+    then
+    useradd roboshop
+    VALIDATE $? "roboshop user creation"
+    else
+    echo -e "roboshop user already exist $Y SKIPPING $N"
 fi 
 
 mkdir -p /app
@@ -66,16 +66,16 @@ VALIDATE $? "Installing dependencies "
 cp home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 VALIDATE $? "Copying catalogue service file"
 
-systemctl daemon-reload
+systemctl daemon-reload &>> $LOGFILE
 VALIDATE "Catalogue Daemon-reload" 
 
-systemctl enable catalogue
+systemctl enable catalogue &>> $LOGFILE
 VALIDATE $? "Enabling catalogue"
 
-systemctl start catalogue
+systemctl start catalogue &>> $LOGFILE
 VALIDATE $? "Starting catalogue" 
 
-cp home/centos/roboshop-shell/mango.repo /etc/yum.repos.d/mongo.repo
+cp home/centos/roboshop-shell/mango.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 VALIDATE $? "Copying mongodb repo file"
 
 dnf install mongodb-org-shell -y &>> $LOGFILE
