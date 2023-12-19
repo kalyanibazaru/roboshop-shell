@@ -30,7 +30,7 @@ if [ $ID -ne 0 ]
 fi
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
-VALIDATE $? "Copied MongoDB"
+VALIDATE $? "Copied MongoDB repo"
 
 dnf install mongodb-org -y &>> $LOGFILE
 
