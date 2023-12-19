@@ -5,6 +5,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+MONGODB_HOST=mongodb.bkdevops.online
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
@@ -38,18 +39,24 @@ VALIDATE $? "Enabling nodejs:18"
 dnf install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing nodejs: 18" 
 
+id roboshop #if roboshop user does not exist
+if [ $/ -ne 0 ]
+then
 useradd roboshop
-VALIDATE $? "Creating roboshop user" 
+VALIDATE $? "roboshop user creation"
+else
+echo -e "roboshop user already exist $Y SKIPPING $N"
+fi 
 
-mkdir /app
-VALIDATE $? "Making directory" 
+mkdir -p /app
+VALIDATE $? "Creating app directory" 
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
 VALIDATE $? "Downloading catalogue application"
 
 cd /app 
 
-unzip /tmp/catalogue.zip &>> $LOGFILE
+unzip -o /tmp/catalogue.zip &>> $LOGFILE
 VALIDATE $? "Unziping catalogue application " 
 
 npm install &>> $LOGFILE
