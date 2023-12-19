@@ -72,7 +72,7 @@ VALIDATE "user Daemon-reload"
 systemctl enable user &>> $LOGFILE
 VALIDATE $? "Enabling user"
 
-systemctl start catalogue &>> $LOGFILE
+systemctl start user &>> $LOGFILE
 VALIDATE $? "Starting user" 
 
 cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
