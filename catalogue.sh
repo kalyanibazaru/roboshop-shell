@@ -63,7 +63,7 @@ npm install &>> $LOGFILE
 VALIDATE $? "Installing dependencies " 
 
 # Here use abosulte path,bcoz catalogue.service exists there only
-cp home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
+cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 VALIDATE $? "Copying catalogue service file"
 
 systemctl daemon-reload &>> $LOGFILE
