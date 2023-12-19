@@ -81,5 +81,5 @@ VALIDATE $? "Copying mongodb repo"
 dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "Installing MongoDB client" 
 
-mongo --host $MONGOBD_HOST </app/schema/user.js
+mongo --host $MONGODB_HOST </app/schema/user.js
 VALIDATE $? "Loading user data into MongoDB"
