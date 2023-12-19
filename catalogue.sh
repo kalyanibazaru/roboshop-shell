@@ -75,7 +75,7 @@ dnf install mongodb-org-shell -y
 VALIDATE $? "Installing client server" &>> $LOGFILE
 
 mongo --host mongodb.bkdevops.online </app/schema/catalogue.js
-VALIDATE $? " 
+
 
 
 
