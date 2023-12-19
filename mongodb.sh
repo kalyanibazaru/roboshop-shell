@@ -15,7 +15,8 @@ VALIDATE(){
 if [ $1 -ne 0 ]
 then
     echo -e "$2 .......$R FAILED $N"
-else
+    exit 1
+    else
     echo -e $2 ......$G SUCCESS $N"
 fi
 }
@@ -50,4 +51,5 @@ sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>> $LOGFILE
 VALIDATE $? "Remote access to mongoDB"
 
 systemctl restart mongod &>> $LOGFILE
-VALIDATE $? "Restarting mongoDB"
+
+VALIDATE $? "Restarting MongoDB"
