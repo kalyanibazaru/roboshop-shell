@@ -81,37 +81,7 @@ VALIDATE $? "Copying mongodb repo file"
 dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "Installing client server" 
 
-mongo --host mongodb.bkdevops.online </app/schema/catalogue.js &>> $LOGFILE
+mongo --host $MONGODB_HOST </app/schema/catalogue.js &>> $LOGFILE
 VALIDATE $? "Loading catalogue data into MongoDB"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
