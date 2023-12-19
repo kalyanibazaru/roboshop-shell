@@ -27,8 +27,8 @@ if [ $ID -ne 0 ]
     else
     echo "you are root user"
 fi
-cp mongod.repo /etc/yum.repos.d/mongo.repo $>> $LOGFILE
-VALIDATE $? "copied mongobd repo"
+cp mongo.repo /etc/yum.repos.d/mongo.repo $>> $LOGFILE
+VALIDATE $? "copied mongodb repo"
 
 dnf install mongodb-org -y $>> $LOGFILE
 VALIDATE $? "Installed mongodb"
