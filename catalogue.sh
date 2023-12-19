@@ -49,14 +49,14 @@ VALIDATE $? "Downloading catalogue application"
 
 cd /app 
 
-unzip /tmp/catalogue.zip
+unzip /tmp/catalogue.zip &>> $LOGFILE
 VALIDATE $? "Unziping catalogue application " 
 
-npm install 
+npm install &>> $LOGFILE
 VALIDATE $? "Installing dependencies " 
 
 # Here use abosulte path,bcoz catalogue.service exists there only
-cp home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service 
+cp home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 VALIDATE $? "Copying catalogue service file"
 
 systemctl daemon-reload
@@ -71,10 +71,10 @@ VALIDATE $? "Starting catalogue"
 cp home/centos/roboshop-shell/mango.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Copying mongodb repo file"
 
-dnf install mongodb-org-shell -y
+dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "Installing client server" 
 
-mongo --host mongodb.bkdevops.online </app/schema/catalogue.js
+mongo --host mongodb.bkdevops.online </app/schema/catalogue.js &>> $LOGFILE
 VALIDATE $? "Loading catalogue data into MongoDB"
 
 
