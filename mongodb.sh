@@ -23,24 +23,33 @@ fi
 
 if [ $ID -ne 0 ]
     then 
-    echo "Error: please run this script with root access"
+    echo -e "$R Error: please run this script with root access $N"
+    exit 1
     else
     echo "you are root user"
+    
 fi
-cp mongo.repo /etc/yum.repos.d/mongo.repo $>> $LOGFILE
+
+cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+
 VALIDATE $? "copied mongodb repo"
 
 dnf install mongodb-org -y &>> $LOGFILE
-VALIDATE $? "Installed mongodb"
+
+VALIDATE $? "Installed mongoDB"
 
 systemctl enable mongod &>> $LOGFILE
-VALIDATE $? "Enabling mongodb"
+
+VALIDATE $? "Enabling mongoDB"
 
 systemctl start mongod &>> $LOGFILE
-VALIDATE $? "started mongodb"
+
+VALIDATE $? "started mongoDB"
 
 sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf &>> $LOGFILE
-VALIDATE $? "Remote access to mongodb"
+
+VALIDATE $? "Remote access to mongoDB"
 
 systemctl restart mongod &>> $LOGFILE
-VALIDATE $? "Restarting mongodb" 
+
+VALIDATE $? "Restarting mongoDB"
