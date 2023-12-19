@@ -29,52 +29,53 @@ if [ $ID -ne 0 ]
     echo "you are root user"
 fi
 
-dnf module disable nodejs -y
-VALIDATE $? "Disbling current nodejs" &>> $LOGFILE
+dnf module disable nodejs -y &>> $LOGFILE
+VALIDATE $? "Disbling current nodejs" 
 
-dnf module enable nodejs:18 -y
-VALIDATE $? "Enabling nodejs:18" &>> $LOGFILE
+dnf module enable nodejs:18 -y &>> $LOGFILE
+VALIDATE $? "Enabling nodejs:18" 
 
-dnf install nodejs -y
-VALIDATE $? "Installing nodejs: 18" &>> $LOGFILE
+dnf install nodejs -y &>> $LOGFILE
+VALIDATE $? "Installing nodejs: 18" 
 
 useradd roboshop
-VALIDATE $? "Creating roboshop user" &>> $LOGFILE
+VALIDATE $? "Creating roboshop user" 
 
 mkdir /app
-VALIDATE $? "Making directory" &>> $LOGFILE
+VALIDATE $? "Making directory" 
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip
-VALIDATE $? "Downloading catalogue application" &>> $LOGFILE
+curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
+VALIDATE $? "Downloading catalogue application"
 
 cd /app 
 
 unzip /tmp/catalogue.zip
-VALIDATE $? "Unziping catalogue application " &>> $LOGFILE
+VALIDATE $? "Unziping catalogue application " 
 
 npm install 
-VALIDATE $? "Installing dependencies " &>> $LOGFILE
+VALIDATE $? "Installing dependencies " 
 
 # Here use abosulte path,bcoz catalogue.service exists there only
 cp home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service 
 VALIDATE $? "Copying catalogue service file"
 
 systemctl daemon-reload
-VALIDATE "Catalogue Daemon-reload" &>> $LOGFILE
+VALIDATE "Catalogue Daemon-reload" 
 
 systemctl enable catalogue
-VALIDATE $? "Enabling catalogue" &>> $LOGFILE
+VALIDATE $? "Enabling catalogue"
 
 systemctl start catalogue
-VALIDATE $? "Starting catalogue" &>> $LOGFILE
+VALIDATE $? "Starting catalogue" 
 
 cp home/centos/roboshop-shell/mango.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Copying mongodb repo file"
 
 dnf install mongodb-org-shell -y
-VALIDATE $? "Installing client server" &>> $LOGFILE
+VALIDATE $? "Installing client server" 
 
 mongo --host mongodb.bkdevops.online </app/schema/catalogue.js
+VALIDATE $? "Loading catalogue data into MongoDB"
 
 
 
