@@ -51,12 +51,12 @@ fi
 mkdir -p /app
 VALIDATE $? "Creating app directory" 
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOGFILE
+curl -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> $LOGFILE
 VALIDATE $? "Downloading cart application"
 
 cd /app 
 
-unzip -o /tmp/catalogue.zip &>> $LOGFILE
+unzip -o /tmp/cart.zip &>> $LOGFILE
 VALIDATE $? "Unzipping cart application" 
 
 npm install &>> $LOGFILE
