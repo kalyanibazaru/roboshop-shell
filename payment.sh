@@ -61,8 +61,8 @@ VALIDATE $? "Copying payment service"
 systemctl daemon-reload &>> $LOGFILE
 VALIDATE $? "payment Daemon-reload" 
 
-systemctl enable catalogue &>> $LOGFILE
+systemctl enable payment &>> $LOGFILE
 VALIDATE $? "Enabling payment"
 
-systemctl start catalogue &>> $LOGFILE
+systemctl start payment &>> $LOGFILE
 VALIDATE $? "Starting payment" 
