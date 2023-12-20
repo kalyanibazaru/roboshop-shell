@@ -62,7 +62,7 @@ VALIDATE $? "Unzipping cart application"
 npm install &>> $LOGFILE
 VALIDATE $? "Installing dependencies" 
 
-# Here use abosulte path,bcoz catalogue.service exists there only
+# Here use abosulte path,bcoz cart.service exists there only
 cp /home/centos/roboshop-shell/cart.service /etc/systemd/system/cart.service &>> $LOGFILE
 VALIDATE $? "Copying cart service file"
 
