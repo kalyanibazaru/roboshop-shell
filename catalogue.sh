@@ -31,13 +31,16 @@ if [ $ID -ne 0 ]
 fi
 
 dnf module disable nodejs -y &>> $LOGFILE
-VALIDATE $? "Disbling current nodejs" 
 
-dnf module enable nodejs:18 -y &>> $LOGFILE
-VALIDATE $? "Enabling nodejs:18" 
+VALIDATE $? "Disabling current NodeJS"
 
-dnf install nodejs -y &>> $LOGFILE
-VALIDATE $? "Installing nodejs: 18" 
+dnf module enable nodejs:18 -y  &>> $LOGFILE
+
+VALIDATE $? "Enabling NodeJS:18"
+
+dnf install nodejs -y  &>> $LOGFILE
+
+VALIDATE $? "Installing NodeJS:18"
 
 id roboshop #if roboshop user does not exist, then it is failure
 if [ $? -ne 0 ]
@@ -49,39 +52,48 @@ else
 fi
 
 mkdir -p /app
-VALIDATE $? "Creating app directory" 
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
+VALIDATE $? "creating app directory"
+
+curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip  &>> $LOGFILE
+
 VALIDATE $? "Downloading catalogue application"
 
 cd /app 
 
-unzip -o /tmp/catalogue.zip &>> $LOGFILE
-VALIDATE $? "Unzipping catalogue application" 
+unzip -o /tmp/catalogue.zip  &>> $LOGFILE
 
-npm install &>> $LOGFILE
-VALIDATE $? "Installing dependencies" 
+VALIDATE $? "unzipping catalogue"
 
-# Here use abosulte path,bcoz catalogue.service exists there only
+npm install  &>> $LOGFILE
+
+VALIDATE $? "Installing dependencies"
+
+# use absolute, because catalogue.service exists there
 cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
+
 VALIDATE $? "Copying catalogue service file"
 
 systemctl daemon-reload &>> $LOGFILE
-VALIDATE $? "Catalogue Daemon-reload" 
+
+VALIDATE $? "catalogue daemon reload"
 
 systemctl enable catalogue &>> $LOGFILE
-VALIDATE $? "Enabling catalogue"
+
+VALIDATE $? "Enable catalogue"
 
 systemctl start catalogue &>> $LOGFILE
-VALIDATE $? "Starting catalogue" 
+
+VALIDATE $? "Starting catalogue"
 
 cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
-VALIDATE $? "Copying mongodb repo"
+
+VALIDATE $? "copying mongodb repo"
 
 dnf install mongodb-org-shell -y &>> $LOGFILE
-VALIDATE $? "Installing MongoDB client" 
+
+VALIDATE $? "Installing MongoDB client"
 
 mongo --host $MONGDB_HOST </app/schema/catalogue.js &>> $LOGFILE
-VALIDATE $? "Loading catalogue data into MongoDB"
 
-
+VALIDATE $? "Loading catalouge data into MongoDB"
