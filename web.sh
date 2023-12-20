@@ -49,6 +49,7 @@ unzip /tmp/web.zip
 VALIDATE $? "Unzipping web"
 
 vim /home/centos/roboshop-shell/roboshop.service /etc/nginx/default.d/roboshop.conf &>> $LOGFILE
+VALIDATE $? "Reverse proxy configuration"
 
 systemctl restart nginx 
 VALIDATE $? "Restart nginx"

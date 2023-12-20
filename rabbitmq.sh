@@ -30,19 +30,19 @@ if [ $ID -ne 0 ]
         echo "you are root user"
 fi
 
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>> $LOGFILE
-VALIDATE $? "Installing redis repo"
+curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash &>> $LOGFILE
 
-dnf module enable redis:remi-6.2 -y &>> $LOGFILE
-VALIDATE $? "Enabling redis"
+curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>> $LOGFILE
 
-dnf install redis -y &>> $LOGFILE
-VALIDATE $? "Installing redis"
+dnf install rabbitmq-server -y &>> $LOGFILE
+VALIDATE $? "Installing rabbitmq"
 
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf &>> $LOGFILE
+systemctl enable rabbitmq-server 
+VALIDATE $? "Enabling rabbitmq"
 
-systemctl enable redis &>> $LOGFILE
-VALIDATE $? "Enabling redis"
+systemctl start rabbitmq-server 
+VALIDATE $? "Starting rabbitmq"
 
-systemctl start redis &>> $LOGFILE
-VALIDATE $? "Starting redis"
+rabbitmqctl add_user roboshop roboshop123
+
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
