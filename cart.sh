@@ -70,10 +70,10 @@ systemctl daemon-reload &>> $LOGFILE
 VALIDATE $? "Cart Daemon-reload" 
 
 systemctl enable catalogue &>> $LOGFILE
-VALIDATE $? "Enabling catalogue"
+VALIDATE $? "Enabling cart"
 
 systemctl start catalogue &>> $LOGFILE
-VALIDATE $? "Starting catalogue" 
+VALIDATE $? "Starting cart" 
 
 
 

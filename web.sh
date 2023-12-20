@@ -45,11 +45,11 @@ curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip &>> $LOGFI
 
 cd /usr/share/nginx/html
 
-unzip /tmp/web.zip
+unzip /tmp/web.zip &>> $LOGFILE
 VALIDATE $? "Unzipping web"
 
 vim /home/centos/roboshop-shell/roboshop.service /etc/nginx/default.d/roboshop.conf &>> $LOGFILE
 VALIDATE $? "Reverse proxy configuration"
 
-systemctl restart nginx 
+systemctl restart nginx &>> $LOGFILE
 VALIDATE $? "Restart nginx"

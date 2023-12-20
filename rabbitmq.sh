@@ -37,10 +37,10 @@ curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/sc
 dnf install rabbitmq-server -y &>> $LOGFILE
 VALIDATE $? "Installing rabbitmq"
 
-systemctl enable rabbitmq-server 
+systemctl enable rabbitmq-server &>> $LOGFILE
 VALIDATE $? "Enabling rabbitmq"
 
-systemctl start rabbitmq-server 
+systemctl start rabbitmq-server &>> $LOGFILE
 VALIDATE $? "Starting rabbitmq"
 
 rabbitmqctl add_user roboshop roboshop123
