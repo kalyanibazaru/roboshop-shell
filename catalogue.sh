@@ -15,19 +15,19 @@ echo "script started executing at $TIMESTAMP" &>> $LOGFILE
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-    echo -e "$2 ... $R FAILED $N"
-    exit 1
+        echo -e "$2 ... $R FAILED $N"
+        exit 1
     else
-    echo -e "$2 ... $G SUCCESS $N"
+        echo -e "$2 ... $G SUCCESS $N"
     fi
 }
 
 if [ $ID -ne 0 ]
     then
-    echo -e "$R ERROR:: please run this script with root access $N"
-    exit 1
+        echo -e "$R ERROR:: please run this script with root access $N"
+        exit 1
     else
-    echo "you are root user"
+        echo "you are root user"
 fi
 
 dnf module disable nodejs -y &>> $LOGFILE
@@ -39,14 +39,14 @@ VALIDATE $? "Enabling nodejs:18"
 dnf install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing nodejs: 18" 
 
-id roboshop #if roboshop user does not exist
+id roboshop #if roboshop user does not exist, then it is failure
 if [ $? -ne 0 ]
-    then
+then
     useradd roboshop
     VALIDATE $? "roboshop user creation"
-    else
+else
     echo -e "roboshop user already exist $Y SKIPPING $N"
-fi 
+fi
 
 mkdir -p /app
 VALIDATE $? "Creating app directory" 
