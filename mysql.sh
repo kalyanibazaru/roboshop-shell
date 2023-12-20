@@ -33,7 +33,7 @@ fi
 dnf module disable mysql -y &>> $LOGFILE
 VALIDATE $? "Disbling current mysql" 
 
-cp /home/centos/roboshop-shell/mysql.repo //etc/yum.repos.d/mysql.repo &>> $LOGFILE
+cp /home/centos/roboshop-shell/mysql.repo /etc/yum.repos.d/mysql.repo &>> $LOGFILE
 
 dnf install mysql-community-server -y &>> $LOGFILE
 VALIDATE $? "Installing mysql" 
