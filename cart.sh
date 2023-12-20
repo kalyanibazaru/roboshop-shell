@@ -75,5 +75,3 @@ VALIDATE $? "Enabling cart"
 systemctl start cart &>> $LOGFILE
 VALIDATE $? "Starting cart" 
 
-
-
