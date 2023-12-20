@@ -69,10 +69,10 @@ VALIDATE $? "Copying cart service file"
 systemctl daemon-reload &>> $LOGFILE
 VALIDATE $? "Cart Daemon-reload" 
 
-systemctl enable catalogue &>> $LOGFILE
+systemctl enable cart &>> $LOGFILE
 VALIDATE $? "Enabling cart"
 
-systemctl start catalogue &>> $LOGFILE
+systemctl start cart &>> $LOGFILE
 VALIDATE $? "Starting cart" 
 
 
