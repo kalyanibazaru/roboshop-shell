@@ -56,13 +56,13 @@ pip3.6 install -r requirements.txt &>> $LOGFILE
 VALIDATE $? "Installing dependencies" 
 
 cp /home/centos/roboshop-shell/payment.service /etc/systemd/system/payment.service &>> $LOGFILE
-VALIDATE $? "Copying pyment service file"
+VALIDATE $? "Copying payment service"
 
 systemctl daemon-reload &>> $LOGFILE
-VALIDATE $? "pyment Daemon-reload" 
+VALIDATE $? "payment Daemon-reload" 
 
 systemctl enable catalogue &>> $LOGFILE
-VALIDATE $? "Enabling pyment"
+VALIDATE $? "Enabling payment"
 
 systemctl start catalogue &>> $LOGFILE
-VALIDATE $? "Starting pyment" 
+VALIDATE $? "Starting payment" 
