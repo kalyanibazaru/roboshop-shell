@@ -32,16 +32,23 @@ fi
 
 curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash &>> $LOGFILE
 
+VALIDATE $? "Downloading erlang script"
+
 curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash &>> $LOGFILE
 
-dnf install rabbitmq-server -y &>> $LOGFILE
-VALIDATE $? "Installing rabbitmq"
+VALIDATE $? "Downloading rabbitmq script"
+
+dnf install rabbitmq-server -y  &>> $LOGFILE
+
+VALIDATE $? "Installing RabbitMQ server"
 
 systemctl enable rabbitmq-server &>> $LOGFILE
-VALIDATE $? "Enabling rabbitmq"
 
-systemctl start rabbitmq-server &>> $LOGFILE
-VALIDATE $? "Starting rabbitmq"
+VALIDATE $? "Enabling rabbitmq server"
+
+systemctl start rabbitmq-server  &>> $LOGFILE
+
+VALIDATE $? "Starting rabbitmq server"
 
 rabbitmqctl add_user roboshop roboshop123 &>> $LOGFILE
 VALIDATE $? "creating user"
