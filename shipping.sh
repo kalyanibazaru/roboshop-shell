@@ -53,9 +53,7 @@ cd /app
 unzip -o /tmp/shipping.zip &>> $LOGFILE
 VALIDATE $? "Unzipping shipping application" 
 
-cd /app
-
-mvn clean package $LOGFILE
+mvn clean package &>> $LOGFILE
 VALIDATE $? "Installing java application" 
 
 mv target/shipping-1.0.jar shipping.jar
