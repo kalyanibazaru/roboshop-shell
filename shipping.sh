@@ -50,16 +50,19 @@ curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.z
 VALIDATE $? "Downloading shipping application"
 
 cd /app 
+VALIDATE $? "moving to app directory"
 
 unzip -o /tmp/shipping.zip &>> $LOGFILE
 VALIDATE $? "Unzipping shipping application" 
 
 mvn clean package &>> $LOGFILE
-VALIDATE $? "Installing java application" 
+VALIDATE $? "Installing dependencies" 
 
-mv target/shipping-1.0.jar shipping.jar
+mv target/shipping-1.0.jar shipping.jar &>> $LOGFILE
+VALIDATE $? "renaming jar file"
 
 cp /home/centos/roboshop-shell/shipping.service /etc/systemd/system/shipping.service &>> $LOGFILE
+VALIDATE $? "copying shipping service"
 
 systemctl daemon-reload &>> $LOGFILE
 VALIDATE $? "shipping Daemon-reload" 
