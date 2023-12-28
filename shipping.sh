@@ -71,7 +71,8 @@ systemctl start shipping &>> $LOGFILE
 VALIDATE $? "Starting shipping"
 
 dnf install mysql -y &>> $LOGFILE
-VALIDATE $? "Installing mysql client"
+
+VALIDATE $? "install MySQL client"
 
 mysql -h mysql.daws76s.online -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE
 
