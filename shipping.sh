@@ -71,11 +71,13 @@ systemctl start shipping &>> $LOGFILE
 VALIDATE $? "Starting shipping"
 
 dnf install mysql -y &>> $LOGFILE
-VALIDATE $? "Installing mysql"
+VALIDATE $? "Installing mysql client"
 
-mysql -h mysql.bkdevops.online -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE
+mysql -h mysql.daws76s.online -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOGFILE
+
+VALIDATE $? "loading shipping data"
 
 systemctl restart shipping &>> $LOGFILE
-VALIDATE $? "Restarting shipping"
 
+VALIDATE $? "restart shipping"
 
