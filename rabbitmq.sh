@@ -5,7 +5,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-MONGODB_HOST=mongodb.daws76s.online
+MONGODB_HOST=mongodb.bkdevops.online
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
@@ -53,6 +53,7 @@ VALIDATE $? "Starting rabbitmq server"
 # rabbitmqctl add_user roboshop roboshop123 &>> $LOGFILE
 
 id roboshop #if roboshop user does not exist, then it is failure
+
 if [ $? -ne 0 ]
 then
     useradd roboshop
